@@ -18,13 +18,13 @@ final class MovieBrowserViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 1
-        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = Constants.minimumLineSpacing
+        layout.minimumInteritemSpacing = Constants.minimumInteritemSpacing
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
         )
-        collectionView.backgroundColor = .gray
+        collectionView.contentInset = Constants.collectionViewContentInset
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(MovieCollectionViewCell.self)
@@ -36,16 +36,13 @@ final class MovieBrowserViewController: UIViewController {
     
     // Dependencies
     private let presenter: IMovieBrowserPresenter
-//    private let layoutStyle: LayoutStyle
     
     // MARK: - Initialize
     
     init(
         presenter: IMovieBrowserPresenter
-//        layoutStyle: SRLayoutStyle
     ) {
         self.presenter = presenter
-//        self.layoutStyle = layoutStyle
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,31 +52,67 @@ final class MovieBrowserViewController: UIViewController {
     }
     
     // MARK: - LifeCycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        presenter.viewDidLoad()
         configurateNavBar()
+        presenter.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setTintColor(.white)
+        navigationController?.backgroundColor(.black)
     }
     
     // MARK: - Private
     
     private func configurateNavBar() {
+        title = Constants.viewControllerTitle
+//        if #available(iOS 15, *) {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = .clear
+//            navigationController?.navigationBar.standardAppearance = appearance;
+//            navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+//        }
+//        let navBarApperance = UINavigationBarAppearance()
+//        navBarApperance.configureWithOpaqueBackground()
+//
+//        navBarApperance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//        navBarApperance.titleTextAttributes =  [.foregroundColor: UIColor.white]
+//        navBarApperance.backgroundColor = .clear
+        
+                
+    
         
         
-        let button = UIButton(type: .system)
-        button.setTitle("skip", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15)
-        button.tintColor = .white
-        button.addTarget(self, action: #selector(barButtonTapped), for: .touchUpInside)
-        let barButton = UIBarButtonItem(customView: button)
         
-        navigationItem.rightBarButtonItem = barButton
+//        navigationController?.navigationBar.standardAppearance.backgroundColor = UIColor.clear
+//        navigationController?.navigationBar.isTranslucent = true
+        
+        
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: Constants.searchImage,
+            style: .plain,
+            target: self,
+            action: #selector(toSearchButtonTapped)
+        )
+        navigationItem.rightBarButtonItem?.tintColor = .white
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: Constants.profileImage,
+            style: .plain,
+            target: self,
+            action: #selector(barButtonTapped)
+        )
+        navigationItem.leftBarButtonItem?.tintColor = .white
     }
     
     private func setUpUI() {
-        title = "Movie Browser"
         view.addSubview(scrollViewContainer)
         scrollViewContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -88,18 +121,11 @@ final class MovieBrowserViewController: UIViewController {
             scrollViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-//        if layoutStyle.isPad {
-//            headerView.titleLabel.textAlignment = .center
-//            headerView.subtitleLabel.textAlignment = .center
-//            collectionView.contentInset = .padInsets
-//        } else {
-//            collectionView.contentInset = .phoneInsets
-//        }
     }
     
     //MARK: - Action
     @objc func barButtonTapped() {
-//        delegate?.didTapButtonProfile()
+
         
     }
     
@@ -126,9 +152,9 @@ extension MovieBrowserViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             MovieCollectionViewCell.self,
             for: indexPath
-        ) as SelectableView
+        ) as MovieCollectionViewCell
         
-        cell.isSelected.toggle()
+//        cell.isSelected.toggle()
         presenter.didSelectItem(at: indexPath)
     }
     
@@ -136,7 +162,7 @@ extension MovieBrowserViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        presenter.numberOfItems()
+        presenter.numberOfItems
     }
     
     func collectionView(
@@ -179,51 +205,55 @@ extension MovieBrowserViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let defaultCellWidth = collectionView.frame.width / 2
-        
-        let defaultCellSize = CGSize(
-            width: defaultCellWidth,
-            height: .defaultCellHeight
+        return CGSize(
+            width: (view.frame.width / 2) - 0.5,
+            height: (view.frame.height / 3)
         )
-        
-//        switch layoutStyle {
-//        case .phone:
-//            return defaultCellSize
-//
-//        case .pad:
-//            guard
-//                let layout = collectionViewLayout as? UICollectionViewFlowLayout
-//            else { return defaultCellSize }
-//
-//            let minimumInteritemSpacing = layout.minimumInteritemSpacing
-//            let padCellWidth = (defaultCellWidth - minimumInteritemSpacing) / .countOfCellsInRow
-//
-//            return CGSize(
-//                width: padCellWidth,
-//                height: .defaultCellHeight
-//            )
-//        }
-        
-        return CGSize(width: (view.frame.size.width/2)-0.5,
-                      height: (view.frame.size.width/1.3)-9)
     }
 }
 
 // MARK: - Constants
 
-private extension CGFloat {
-    static let margin26 = 26.0
-    static let margin80 = 80.0
-    static let defaultCellHeight = 100.0
-    static let countOfCellsInRow = 2.0
-    static let buttonWidth = 375.0
+private enum Constants {
+    static let minimumLineSpacing = 1.0
+    static let minimumInteritemSpacing = 1.0
+    static let collectionViewContentInset = UIEdgeInsets(
+        top: 34,
+        left: .zero,
+        bottom: .zero,
+        right: .zero
+    )
+    
+    static let profileImage = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysTemplate)
+    static let searchImage = UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysTemplate)
+    
+    static let rightBarButtonTitle = "skip"
+    static let rightBarButtonFont = UIFont.systemFont(ofSize: 15)
+    
+    static let viewControllerTitle = "Movie Browser"
+    static let defaultBrownColor = UIColor(
+        red: 0.9098039216,
+        green: 0.8784313725,
+        blue: 0.8392156863,
+        alpha: 1
+    )
 }
 
-private extension UIEdgeInsets {
-    static let phoneInsets = UIEdgeInsets(
-        top: 26,
-        left: 16,
-        bottom: 96,
-        right: 16
-    )
+private extension UINavigationController {
+    func transparentNavigationBar() {
+        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationBar.shadowImage = UIImage()
+        self.navigationBar.isTranslucent = true
+    }
+
+    func setTintColor(_ color: UIColor) {
+        self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: color]
+        self.navigationBar.tintColor = color
+    }
+
+    func backgroundColor(_ color: UIColor) {
+        navigationBar.setBackgroundImage(nil, for: .default)
+        navigationBar.barTintColor = color
+        navigationBar.shadowImage = UIImage()
+    }
 }

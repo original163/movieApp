@@ -9,7 +9,7 @@ import Foundation
 
 protocol IMovieBrowserPresenter: AnyObject {
     func viewDidLoad()
-    func numberOfItems() -> Int
+    var numberOfItems: Int { get }
     func didSelectItem(at indexPath: IndexPath)
     func viewModel(for indexPath: IndexPath) -> MovieCollectionViewCell.ConfigurationModel
 }
@@ -19,6 +19,9 @@ final class MovieBrowserPresenter: IMovieBrowserPresenter {
     // Dependencies
     weak var view: IMovieBrowserView?
     private var dataHolder: IMovieBrowserDataHolder
+    
+    // Prorerties
+    var numberOfItems: Int { return 9}
     
     // MARK: - Initialize
     
@@ -36,16 +39,12 @@ final class MovieBrowserPresenter: IMovieBrowserPresenter {
     func viewDidLoad() {
         
     }
-    
-    func numberOfItems() -> Int {
-        return 9
-    }
-    
+        
     func didSelectItem(at indexPath: IndexPath) {
         
     }
     
     func viewModel(for indexPath: IndexPath) -> MovieCollectionViewCell.ConfigurationModel {
-        return MovieCollectionViewCell.ConfigurationModel(id: 1, title: "title")
+        return dataHolder.viewModels[indexPath.row]
     }
 }

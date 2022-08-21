@@ -7,11 +7,11 @@
 
 import UIKit
 
-public final class MaskedContainerView: UIView {
+final class MaskedContainerView: UIView {
     
     // MARK: - Initialize
     
-    public init(
+    init(
         containedView: UIView? = nil,
         configuration: ConfigurationModel = .default
     ) {
@@ -31,7 +31,7 @@ public final class MaskedContainerView: UIView {
         configure(with: configuration)
     }
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         configure(with: .default)
     }
@@ -43,7 +43,7 @@ public final class MaskedContainerView: UIView {
     
     // MARK: - Lifecycle
     
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         updateMaskFrame()
     }
@@ -55,14 +55,14 @@ public final class MaskedContainerView: UIView {
     }
 }
 
-// MARK: - SRConfigurableView
+// MARK: - ConfigurableView
 
 extension MaskedContainerView: ConfigurableView {
     
-    public struct ConfigurationModel {
+    struct ConfigurationModel {
         
         // Static
-        public static let `default`: ConfigurationModel = {
+        static let `default`: ConfigurationModel = {
             let opacity = UIColor.clear.cgColor
             let transparent = UIColor.black.cgColor
             let colors = [opacity, transparent, transparent, opacity]
@@ -74,16 +74,28 @@ extension MaskedContainerView: ConfigurableView {
                 colors: colors
             )
         }()
+        static let `custom`: ConfigurationModel = {
+            let opacity = UIColor.green.cgColor
+            let transparent = UIColor.red.cgColor
+            let colors = [transparent, opacity]
+            
+            return ConfigurationModel(
+                startPoint: .topCenter,
+                endPoint: .bottomCenter,
+                locations: [0.0, 0.05, 0.95, 1.0],
+                colors: colors
+            )
+        }()
         
         // Properties
-        public let startPoint: CGPoint
-        public let endPoint: CGPoint
-        public let locations: [NSNumber]?
-        public let colors: [CGColor]?
+        let startPoint: CGPoint
+        let endPoint: CGPoint
+        let locations: [NSNumber]?
+        let colors: [CGColor]?
         
         // MARK: - Initialize
         
-        public init(
+        init(
             startPoint: CGPoint,
             endPoint: CGPoint,
             locations: [NSNumber]? = nil,
@@ -96,7 +108,7 @@ extension MaskedContainerView: ConfigurableView {
         }
     }
     
-    public func configure(with model: ConfigurationModel) {
+    func configure(with model: ConfigurationModel) {
         let maskGradientLayer = CAGradientLayer()
         maskGradientLayer.startPoint = model.startPoint
         maskGradientLayer.endPoint = model.endPoint
@@ -158,4 +170,3 @@ private extension CGPoint {
         CGPoint(x: 0.5, y: 0.5)
     }
 }
-
