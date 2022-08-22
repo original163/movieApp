@@ -12,7 +12,7 @@ final class MovieCollectionViewCell: UICollectionViewCell {
     // UI
     private lazy var movieImageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.layer.cornerRadius = 12
+        imageView.layer.cornerRadius = .size12
         imageView.backgroundColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
@@ -22,98 +22,35 @@ final class MovieCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.textColor = .white
-        label.font = .systemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: .size15)
         return label
     }()
     private lazy var movietype: UILabel  = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: .size13)
         return label
     }()
     private lazy var movieYear: UILabel  = {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 8)
+        label.font = .systemFont(ofSize: .size8)
         return label
     }()
     private lazy var movieDuration: UILabel  = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 8)
+        label.font = .systemFont(ofSize: .size8)
         return label
     }()
     private lazy var movieRating: UILabel  = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: .size10)
         return label
     }()
-    private lazy var descriptionView: UIStackView = {
-        let fullStackView = UIStackView()
-        
-        let topStackView: UIStackView  = {
-            let topStackView = UIStackView()
-            topStackView.axis = .vertical
-            topStackView.addArrangedSubview(movieTitle)
-            topStackView.addArrangedSubview(movietype)
-            return topStackView
-        }()
-        
-        let bottomStackView: UIStackView = {
-            let bottomStackView = UIStackView()
-            bottomStackView.axis = .vertical
-            bottomStackView.distribution = .fillEqually
-            
-            let movieYearStackView: UIStackView = {
-                let yearImageView = UIImageView()
-                yearImageView.image = UIImage(systemName: "film")?.withRenderingMode(.alwaysTemplate)
-                yearImageView.tintColor = .white
-                yearImageView.contentMode = .scaleAspectFit
-                let stack = UIStackView()
-                stack.axis = .horizontal
-                stack.addArrangedSubview(yearImageView)
-                stack.addArrangedSubview(movieYear)
-                return stack
-            }()
-            let movieDurationStackView: UIStackView = {
-                let durationImageView = UIImageView()
-                durationImageView.image = UIImage(systemName: "timer")?.withRenderingMode(.alwaysTemplate)
-                durationImageView.tintColor = .white
-                durationImageView.contentMode = .scaleAspectFit
-                let stack = UIStackView()
-                stack.axis = .horizontal
-                stack.addArrangedSubview(durationImageView)
-                stack.addArrangedSubview(movieDuration)
-                return stack
-            }()
-            let movieRatingStackView: UIStackView = {
-                let ratingImageView = UIImageView()
-                ratingImageView.image = UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate)
-                ratingImageView.tintColor = .white
-                ratingImageView.contentMode = .scaleAspectFit
-                let stack = UIStackView()
-                stack.axis = .horizontal
-                stack.addArrangedSubview(ratingImageView)
-                stack.addArrangedSubview(movieRating)
-                return stack
-            }()
-            
-            bottomStackView.addArrangedSubview(movieYearStackView)
-            bottomStackView.addArrangedSubview(movieDurationStackView)
-            bottomStackView.addArrangedSubview(movieRatingStackView)
-            return bottomStackView
-        }()
-        
-        fullStackView.layoutMargins = UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
-        fullStackView.isLayoutMarginsRelativeArrangement = true
-        fullStackView.addBackground(color: .black.withAlphaComponent(0.5))
-        fullStackView.axis = .vertical
-        fullStackView.addArrangedSubview(topStackView)
-        fullStackView.addArrangedSubview(bottomStackView)
-        return fullStackView
-    }()
+    private lazy var descriptionView = MovieDescriptionView()
     
     // MARK: - Initialize
     
@@ -137,10 +74,8 @@ final class MovieCollectionViewCell: UICollectionViewCell {
     // MARK: - Private
 
     private func setUpUI() {
-        
-        layer.cornerRadius = 12
+        layer.cornerRadius = .cornerRadius12
         clipsToBounds = true
-        contentView.layer.cornerRadius = 12
         
         addSubview(movieImageView)
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -150,15 +85,13 @@ final class MovieCollectionViewCell: UICollectionViewCell {
             movieImageView.topAnchor.constraint(equalTo: topAnchor),
             movieImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
         addSubview(descriptionView)
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             descriptionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             descriptionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             descriptionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            descriptionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
-            
+            descriptionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: .descriptionViewMultiplayer)
         ])
     }
 }
@@ -175,28 +108,23 @@ extension MovieCollectionViewCell: ConfigurableView {
         let movieTitle: String
         let movieType: String
         let movieDuration: String
-        let movieYear: String
+        let movieRelease: String
         let movieRating: Float
     }
     
     func configure(with model: ConfigurationModel) {
-        movieTitle.text = model.movieTitle
-        movietype.text = model.movieType
-        movieDuration.text = model.movieDuration
-        movieYear.text = model.movieYear
-        movieRating.text = String(model.movieRating)
+        descriptionView.title.text = model.movieTitle
+        descriptionView.typeLabel.text = model.movieType + .middleDot
+        descriptionView.releaseLabel.text = model.movieRelease
+        descriptionView.durationLabel.text = model.movieDuration
+        descriptionView.ratingLabel.text = String(model.movieRating)
     }
 }
 
+private extension String {
+    static let middleDot = " · "
+}
 
-private extension UIStackView {
-    /*
-     UIStackView is a non-drawing view, meaning that  drawRect() is never called and its background color is ignored. If you desperately want a background color, consider placing the stack view inside another UIView and giving that view a background color.
-     */
-    func addBackground(color: UIColor) {
-        let subView = UIView(frame: bounds)
-        subView.backgroundColor = color
-        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        insertSubview(subView, at: 0)
-    }
+private extension CGFloat {
+    static let descriptionViewMultiplayer = 0.25
 }

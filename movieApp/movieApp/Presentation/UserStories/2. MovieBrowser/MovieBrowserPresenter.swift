@@ -21,7 +21,9 @@ final class MovieBrowserPresenter: IMovieBrowserPresenter {
     private var dataHolder: IMovieBrowserDataHolder
     
     // Prorerties
-    var numberOfItems: Int { return 9}
+    var numberOfItems: Int {
+        return dataHolder.viewModels.count
+    }
     
     // MARK: - Initialize
     
@@ -35,7 +37,6 @@ final class MovieBrowserPresenter: IMovieBrowserPresenter {
     
     // MARK: - IMovieBrowserPresenter
 
-    
     func viewDidLoad() {
         
     }

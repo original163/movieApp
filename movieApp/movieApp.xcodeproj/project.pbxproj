@@ -19,6 +19,9 @@
 		CD71D14328B0020000269E60 /* MovieBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71D14228B0020000269E60 /* MovieBrowserViewController.swift */; };
 		CD71D14828B0020100269E60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD71D14728B0020100269E60 /* Assets.xcassets */; };
 		CD71D14B28B0020100269E60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD71D14928B0020100269E60 /* LaunchScreen.storyboard */; };
+		CDBCA76D28B3E25700157A42 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCA76C28B3E25700157A42 /* MovieService.swift */; };
+		CDBE4DDA28B3720600B2884C /* MovieDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE4DD928B3720600B2884C /* MovieDescriptionView.swift */; };
+		CDBE4DDD28B382A900B2884C /* CGFloat+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE4DDC28B382A900B2884C /* CGFloat+Design.swift */; };
 		CDF2ED0528B2AE160088B34C /* MaskedContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF2ED0428B2AE160088B34C /* MaskedContainerView.swift */; };
 		CDF2ED0728B2AE210088B34C /* BackgroundGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF2ED0628B2AE210088B34C /* BackgroundGradientLayer.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +41,9 @@
 		CD71D14728B0020100269E60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD71D14A28B0020100269E60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD71D14C28B0020100269E60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = movieApp/App/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
+		CDBCA76C28B3E25700157A42 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
+		CDBE4DD928B3720600B2884C /* MovieDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDescriptionView.swift; sourceTree = "<group>"; };
+		CDBE4DDC28B382A900B2884C /* CGFloat+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Design.swift"; sourceTree = "<group>"; };
 		CDF2ED0428B2AE160088B34C /* MaskedContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedContainerView.swift; sourceTree = "<group>"; };
 		CDF2ED0628B2AE210088B34C /* BackgroundGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGradientLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				CD3E39D328B0DDBE00FEB838 /* MovieCollectionViewCell.swift */,
+				CDBE4DD928B3720600B2884C /* MovieDescriptionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,12 +217,62 @@
 			isa = PBXGroup;
 			children = (
 				CD3E39C628B0D9B900FEB838 /* App */,
+				CDBCA76728B3E1CC00157A42 /* BusinessLogic */,
 				CD3E39C828B0D9FF00FEB838 /* Core */,
 				CD3E39C928B0DA2700FEB838 /* Presentation */,
 				CD3E39C728B0D9C400FEB838 /* Resources */,
 				CD3E39D528B0DE8F00FEB838 /* DesignKit */,
+				CDBE4DDB28B3828100B2884C /* Constants */,
 			);
 			path = movieApp;
+			sourceTree = "<group>";
+		};
+		CDBCA76728B3E1CC00157A42 /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+				CDBCA76828B3E1EE00157A42 /* Services */,
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		CDBCA76828B3E1EE00157A42 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CDBCA76928B3E21400157A42 /* MovieService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CDBCA76928B3E21400157A42 /* MovieService */ = {
+			isa = PBXGroup;
+			children = (
+				CDBCA76B28B3E24700157A42 /* Request */,
+				CDBCA76A28B3E24000157A42 /* Model */,
+				CDBCA76C28B3E25700157A42 /* MovieService.swift */,
+			);
+			path = MovieService;
+			sourceTree = "<group>";
+		};
+		CDBCA76A28B3E24000157A42 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CDBCA76B28B3E24700157A42 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		CDBE4DDB28B3828100B2884C /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CDBE4DDC28B382A900B2884C /* CGFloat+Design.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		CDF2ED0128B2ADDF0088B34C /* UIFoundation */ = {
@@ -323,15 +380,18 @@
 			files = (
 				CD3E39DF28B0E49100FEB838 /* UICollectionView+Extensions.swift in Sources */,
 				CD3E39D428B0DDBE00FEB838 /* MovieCollectionViewCell.swift in Sources */,
+				CDBE4DDD28B382A900B2884C /* CGFloat+Design.swift in Sources */,
 				CD3E39E128B0E63000FEB838 /* MovieBrowserPresenter.swift in Sources */,
 				CD3E39E728B1042300FEB838 /* MovieBrowserDataHolder.swift in Sources */,
 				CD3E39D828B0DECD00FEB838 /* ConfigurableView.swift in Sources */,
 				CD3E39EA28B1054D00FEB838 /* MovieBrowserDataHolderMock.swift in Sources */,
 				CD71D14328B0020000269E60 /* MovieBrowserViewController.swift in Sources */,
 				CDF2ED0728B2AE210088B34C /* BackgroundGradientLayer.swift in Sources */,
+				CDBCA76D28B3E25700157A42 /* MovieService.swift in Sources */,
 				CD3E39E328B0E8E900FEB838 /* MovieBrowserAssembly.swift in Sources */,
 				CDF2ED0528B2AE160088B34C /* MaskedContainerView.swift in Sources */,
 				CD71D13F28B0020000269E60 /* AppDelegate.swift in Sources */,
+				CDBE4DDA28B3720600B2884C /* MovieDescriptionView.swift in Sources */,
 				CD3E39DC28B0DFE000FEB838 /* ReuseIdentifierable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,7 +549,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -518,7 +578,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

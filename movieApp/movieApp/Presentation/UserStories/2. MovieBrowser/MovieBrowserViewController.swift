@@ -70,44 +70,23 @@ final class MovieBrowserViewController: UIViewController {
     // MARK: - Private
     
     private func configurateNavBar() {
-        title = Constants.viewControllerTitle
-//        if #available(iOS 15, *) {
-//            let appearance = UINavigationBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .clear
-//            navigationController?.navigationBar.standardAppearance = appearance;
-//            navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-//        }
-//        let navBarApperance = UINavigationBarAppearance()
-//        navBarApperance.configureWithOpaqueBackground()
-//
-//        navBarApperance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-//        navBarApperance.titleTextAttributes =  [.foregroundColor: UIColor.white]
-//        navBarApperance.backgroundColor = .clear
+        title = Constants.movieBrowserTitle
         
-                
-    
-        
-        
-        
-//        navigationController?.navigationBar.standardAppearance.backgroundColor = UIColor.clear
-//        navigationController?.navigationBar.isTranslucent = true
-        
-        
-        
+        // RightButton
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: Constants.searchImage,
             style: .plain,
             target: self,
-            action: #selector(toSearchButtonTapped)
+            action: #selector(searchButtonTapped)
         )
         navigationItem.rightBarButtonItem?.tintColor = .white
         
+        // LeftButton
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: Constants.profileImage,
             style: .plain,
             target: self,
-            action: #selector(barButtonTapped)
+            action: #selector(profileButtonTapped)
         )
         navigationItem.leftBarButtonItem?.tintColor = .white
     }
@@ -124,21 +103,11 @@ final class MovieBrowserViewController: UIViewController {
     }
     
     //MARK: - Action
-    @objc func barButtonTapped() {
-
-        
-    }
     
-    @objc func toSearchButtonTapped() {
-//        let searchVC =  SearchMovieViewController()
-//        self.navigationController?.pushViewController(searchVC, animated: true)
-    }
+    @objc private func profileButtonTapped() { }
+    
+    @objc private func searchButtonTapped() { }
    
-    @objc func handleDismissal() {
-//        dismissInfoView()
-    }
-    
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -149,12 +118,6 @@ extension MovieBrowserViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        let cell = collectionView.dequeueReusableCell(
-            MovieCollectionViewCell.self,
-            for: indexPath
-        ) as MovieCollectionViewCell
-        
-//        cell.isSelected.toggle()
         presenter.didSelectItem(at: indexPath)
     }
     
@@ -184,10 +147,7 @@ extension MovieBrowserViewController: UICollectionViewDataSource {
 // MARK: - IMovieBrowserView
 
 extension MovieBrowserViewController: IMovieBrowserView {
-    func setActivityLoaderEnabled(_ enabled: Bool) {
-        
-    }
-    
+    func setActivityLoaderEnabled(_ enabled: Bool) { }
     
     func updateView() {
         let range = Range(uncheckedBounds: (.zero, collectionView.numberOfSections))
@@ -206,7 +166,7 @@ extension MovieBrowserViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return CGSize(
-            width: (view.frame.width / 2) - 0.5,
+            width: (view.frame.width / 2) - .spaceSeparator,
             height: (view.frame.height / 3)
         )
     }
@@ -218,7 +178,7 @@ private enum Constants {
     static let minimumLineSpacing = 1.0
     static let minimumInteritemSpacing = 1.0
     static let collectionViewContentInset = UIEdgeInsets(
-        top: 34,
+        top: .margin34,
         left: .zero,
         bottom: .zero,
         right: .zero
@@ -227,16 +187,7 @@ private enum Constants {
     static let profileImage = UIImage(systemName: "person.circle")?.withRenderingMode(.alwaysTemplate)
     static let searchImage = UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysTemplate)
     
-    static let rightBarButtonTitle = "skip"
-    static let rightBarButtonFont = UIFont.systemFont(ofSize: 15)
-    
-    static let viewControllerTitle = "Movie Browser"
-    static let defaultBrownColor = UIColor(
-        red: 0.9098039216,
-        green: 0.8784313725,
-        blue: 0.8392156863,
-        alpha: 1
-    )
+    static let movieBrowserTitle = "Movie Browser"
 }
 
 private extension UINavigationController {
