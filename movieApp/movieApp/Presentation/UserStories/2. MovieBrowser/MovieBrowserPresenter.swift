@@ -19,6 +19,7 @@ final class MovieBrowserPresenter: IMovieBrowserPresenter {
     // Dependencies
     weak var view: IMovieBrowserView?
     private var dataHolder: IMovieBrowserDataHolder
+    private var movieService: IMovieService = MovieService()
     
     // Prorerties
     var numberOfItems: Int {
@@ -38,7 +39,16 @@ final class MovieBrowserPresenter: IMovieBrowserPresenter {
     // MARK: - IMovieBrowserPresenter
 
     func viewDidLoad() {
-        
+        movieService.performRequest { movie in
+            let movieViewModel = MovieCollectionViewCell.ConfigurationModel(
+                movieTitle: movie.title,
+                movieType: movie.genre,
+                movieDuration: "2222",
+                movieRelease: movie.release,
+                movieRating: 2222
+            )
+            self.dataHolder.viewModels.append(movieViewModel)
+        }
     }
         
     func didSelectItem(at indexPath: IndexPath) {

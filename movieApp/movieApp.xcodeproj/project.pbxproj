@@ -19,6 +19,8 @@
 		CD71D14328B0020000269E60 /* MovieBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71D14228B0020000269E60 /* MovieBrowserViewController.swift */; };
 		CD71D14828B0020100269E60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD71D14728B0020100269E60 /* Assets.xcassets */; };
 		CD71D14B28B0020100269E60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD71D14928B0020100269E60 /* LaunchScreen.storyboard */; };
+		CD79A79B28B407B7000D12BD /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A79A28B407B7000D12BD /* Movie.swift */; };
+		CD79A79D28B409C8000D12BD /* MovieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A79C28B409C8000D12BD /* MovieRequest.swift */; };
 		CDBCA76D28B3E25700157A42 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCA76C28B3E25700157A42 /* MovieService.swift */; };
 		CDBE4DDA28B3720600B2884C /* MovieDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE4DD928B3720600B2884C /* MovieDescriptionView.swift */; };
 		CDBE4DDD28B382A900B2884C /* CGFloat+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE4DDC28B382A900B2884C /* CGFloat+Design.swift */; };
@@ -41,6 +43,8 @@
 		CD71D14728B0020100269E60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD71D14A28B0020100269E60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD71D14C28B0020100269E60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = movieApp/App/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
+		CD79A79A28B407B7000D12BD /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		CD79A79C28B409C8000D12BD /* MovieRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRequest.swift; sourceTree = "<group>"; };
 		CDBCA76C28B3E25700157A42 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 		CDBE4DD928B3720600B2884C /* MovieDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDescriptionView.swift; sourceTree = "<group>"; };
 		CDBE4DDC28B382A900B2884C /* CGFloat+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Design.swift"; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 		CD3E39C828B0D9FF00FEB838 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				CD79A79E28B411BE000D12BD /* RequestManager */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -227,6 +232,13 @@
 			path = movieApp;
 			sourceTree = "<group>";
 		};
+		CD79A79E28B411BE000D12BD /* RequestManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RequestManager;
+			sourceTree = "<group>";
+		};
 		CDBCA76728B3E1CC00157A42 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +268,7 @@
 		CDBCA76A28B3E24000157A42 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CD79A79A28B407B7000D12BD /* Movie.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -263,6 +276,7 @@
 		CDBCA76B28B3E24700157A42 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				CD79A79C28B409C8000D12BD /* MovieRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -384,12 +398,14 @@
 				CD3E39E128B0E63000FEB838 /* MovieBrowserPresenter.swift in Sources */,
 				CD3E39E728B1042300FEB838 /* MovieBrowserDataHolder.swift in Sources */,
 				CD3E39D828B0DECD00FEB838 /* ConfigurableView.swift in Sources */,
+				CD79A79B28B407B7000D12BD /* Movie.swift in Sources */,
 				CD3E39EA28B1054D00FEB838 /* MovieBrowserDataHolderMock.swift in Sources */,
 				CD71D14328B0020000269E60 /* MovieBrowserViewController.swift in Sources */,
 				CDF2ED0728B2AE210088B34C /* BackgroundGradientLayer.swift in Sources */,
 				CDBCA76D28B3E25700157A42 /* MovieService.swift in Sources */,
 				CD3E39E328B0E8E900FEB838 /* MovieBrowserAssembly.swift in Sources */,
 				CDF2ED0528B2AE160088B34C /* MaskedContainerView.swift in Sources */,
+				CD79A79D28B409C8000D12BD /* MovieRequest.swift in Sources */,
 				CD71D13F28B0020000269E60 /* AppDelegate.swift in Sources */,
 				CDBE4DDA28B3720600B2884C /* MovieDescriptionView.swift in Sources */,
 				CD3E39DC28B0DFE000FEB838 /* ReuseIdentifierable.swift in Sources */,

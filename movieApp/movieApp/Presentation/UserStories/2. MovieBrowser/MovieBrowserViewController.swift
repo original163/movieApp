@@ -55,9 +55,9 @@ final class MovieBrowserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
         setUpUI()
         configurateNavBar()
-        presenter.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,8 +138,9 @@ extension MovieBrowserViewController: UICollectionViewDataSource {
         )
         
         let model = presenter.viewModel(for: indexPath)
-        cell.configure(with: model)
-        
+        DispatchQueue.main.async {
+            cell.configure(with: model)
+        }
         return cell
     }
 }
